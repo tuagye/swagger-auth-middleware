@@ -17,6 +17,10 @@ A flexible, secure authentication middleware for Swagger UI in Express applicati
 npm install @tuagye/swagger-auth-middleware
 ```
 
+```bash
+yarn add @tuagye/swagger-auth-middleware
+```
+
 ## Usage
 
 1. Set up your environment variable:
@@ -28,15 +32,20 @@ SWAGGER_USERS={"admin":"$2b$10$X7oVmW5nqc4FN1v0fz4/pOKz5LYcRpJQgclVhuhQH9RZxOvMQ
 2. Import and use the middleware:
 
 ```typescript
-import express from 'express';
-import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './swagger.json';
-import createAuthMiddleware from '@tuagye/swagger-auth-middleware';
+import express from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger.json";
+import createAuthMiddleware from "@tuagye/swagger-auth-middleware";
 
 const app = express();
 
 const authMiddleware = createAuthMiddleware();
-app.use('/api-docs', authMiddleware, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(
+  "/api-docs",
+  authMiddleware,
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument)
+);
 ```
 
 3. (Optional) Use raw passwords for development:
@@ -50,19 +59,22 @@ const authMiddleware = createAuthMiddleware({ useRawPasswords: true });
 You can use the provided utility functions to generate password hashes:
 
 ```typescript
-import { generatePasswordHash, generateUserObject } from '@tuagye/swagger-auth-middleware/passwordUtils';
+import {
+  generatePasswordHash,
+  generateUserObject,
+} from "@tuagye/swagger-auth-middleware/passwordUtils";
 
 // Generate a single password hash
 async function hashSinglePassword() {
-  const hash = await generatePasswordHash('your-password-here');
+  const hash = await generatePasswordHash("your-password-here");
   console.log(hash);
 }
 
 // Generate a user object with hashed passwords
 async function generateUsers() {
   const users = {
-    admin: 'admin-password',
-    developer: 'dev-password'
+    admin: "admin-password",
+    developer: "dev-password",
   };
   const hashedUsers = await generateUserObject(users);
   console.log(JSON.stringify(hashedUsers));

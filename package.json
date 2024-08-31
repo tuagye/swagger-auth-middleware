@@ -1,6 +1,6 @@
 {
     "name": "@tuagye/swagger-auth-middleware",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Flexible authentication middleware for Swagger UI",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -15,8 +15,16 @@
         "middleware",
         "express"
     ],
-    "author": "Tuagye",
+    "author": "Evans Obeng",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+    "url": "https://github.com/tuagye/swagger-auth-middleware.git"
+    },
+    "homepage": "https://github.com/tuagye/swagger-auth-middleware#readme",
+    "bugs": {
+        "url": "https://github.com/tuagye/swagger-auth-middleware/issues"
+    },
     "dependencies": {
         "bcrypt": "^5.0.1",
         "express": "^4.17.1"
@@ -27,7 +35,7 @@
         "@types/jest": "^27.5.2",
         "@types/node": "^22.5.1",
         "jest": "^27.3.1",
-        "ts-jest": "^27.0.7",
+        "ts-jest": "^27.1.5",
         "typescript": "^4.4.4"
     },
     "peerDependencies": {
