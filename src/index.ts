@@ -1,6 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
-import { compare, hash } from 'bcrypt';
+import { Request, Response, NextFunction } from "express";
+import { compare, hash } from "bcrypt";
 
+// User object type definition for storing credentials
+// e.g. { 'username': 'password' }
+// The password can be a raw string or a bcrypt hash
+// depending on the useRawPasswords option
 interface User {
   [username: string]: string;
 }
@@ -18,7 +22,7 @@ const parseUserCredentials = (envVar: string): User => {
   try {
     return JSON.parse(envVar);
   } catch (error) {
-    console.error('Failed to parse SWAGGER_USERS environment variable:', error);
+    console.error("Failed to parse SWAGGER_USERS environment variable:", error);
     return {};
   }
 };
@@ -54,27 +58,29 @@ const authenticate = async (
  */
 const createAuthMiddleware = (options: AuthMiddlewareOptions = {}) => {
   const { useRawPasswords = false } = options;
-  const users: User = parseUserCredentials(process.env.SWAGGER_USERS || '{}');
+  const users: User = parseUserCredentials(process.env.SWAGGER_USERS || "{}");
 
   return async (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-      res.setHeader('WWW-Authenticate', 'Basic realm="Swagger UI"');
-      return res.status(401).send('Authentication required');
+      res.setHeader("WWW-Authenticate", 'Basic realm="Swagger UI"');
+      return res.status(401).send("Authentication required");
     }
 
-    const [, credentials] = authHeader.split(' ');
-    const [username, password] = Buffer.from(credentials, 'base64').toString().split(':');
+    const [, credentials] = authHeader.split(" ");
+    const [username, password] = Buffer.from(credentials, "base64")
+      .toString()
+      .split(":");
 
     if (await authenticate(username, password, users, useRawPasswords)) {
       next();
     } else {
-      res.setHeader('WWW-Authenticate', 'Basic realm="Swagger UI"');
-      res.status(401).send('Invalid credentials');
+      res.setHeader("WWW-Authenticate", 'Basic realm="Swagger UI"');
+      res.status(401).send("Invalid credentials");
     }
   };
 };
 
-export { generatePasswordHash, generateUserObject } from './passwordUtils';
+export { generatePasswordHash, generateUserObject } from "./passwordUtils";
 export default createAuthMiddleware;
