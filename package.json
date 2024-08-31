@@ -1,0 +1,36 @@
+{
+    "name": "@tuagye/swagger-auth-middleware",
+    "version": "1.0.0",
+    "description": "Flexible authentication middleware for Swagger UI",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "test": "jest",
+        "prepublishOnly": "npm run build && npm test"
+    },
+    "keywords": [
+        "swagger",
+        "authentication",
+        "middleware",
+        "express"
+    ],
+    "author": "Tuagye",
+    "license": "MIT",
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
+        "@types/express": "^4.17.21",
+        "@types/jest": "^27.5.2",
+        "@types/node": "^22.5.1",
+        "jest": "^27.3.1",
+        "ts-jest": "^27.0.7",
+        "typescript": "^4.4.4"
+    },
+    "peerDependencies": {
+        "express": "^4.17.1"
+    }
+}
