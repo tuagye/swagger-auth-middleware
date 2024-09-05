@@ -62,7 +62,7 @@ You can use the provided utility functions to generate password hashes:
 import {
   generatePasswordHash,
   generateUserObject,
-} from "@tuagye/swagger-auth-middleware/passwordUtils";
+} from "@tuagye/swagger-auth-middleware";
 
 // Generate a single password hash
 async function hashSinglePassword() {
